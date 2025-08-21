@@ -1,10 +1,10 @@
 
 import Nav from "@/components/root component/Nav";
 import "./globals.css";
-
 import Footer from "@/components/root component/Footer";
 import Providers from "@/components/Providers";
 import { Toaster } from "sonner";
+
 
 export const metadata = {
   title: "Create Next App",

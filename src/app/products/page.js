@@ -5,15 +5,32 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Star, Eye, Search } from 'lucide-react';
-import { products } from "@/lib/products";
-import { useState } from "react";
 
+import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
 
 
 export default function Products() {
+    const [products, setProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch("/api/products");
+                const data = await res.json();
+                setProducts(data);
+            } catch (error) {
+                console.error("Failed to fetch products:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProducts();
+    }, []);
+    //console.log(products)
     const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
 
     const filteredProducts = products.filter(product => {
@@ -22,7 +39,9 @@ export default function Products() {
         const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
+    if (loading) return <div className="text-center py-20 text-xl">Loading products...</div>;
     return <div className="py-20">
+        <Toaster position="top-right" richColors />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
                 <h1 className="text-4xl sm:text-5xl font-bold mb-4">
@@ -61,7 +80,7 @@ export default function Products() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredProducts.map((product) => (
-                    <Card key={product.id} className="group hover:shadow-card transition-all duration-300 border-0 shadow-sm">
+                    <Card key={product._id} className="group hover:shadow transition-all duration-300 border-0 shadow-sm">
                         <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
                             <img
                                 src={product.image}
@@ -75,7 +94,7 @@ export default function Products() {
                                 <Badge variant="secondary">{product.category}</Badge>
                                 <div className="flex items-center space-x-1">
                                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                    <span className="text-sm font-medium">{product.rating}</span>
+                                    <span className="text-sm font-medium">{product.ratings}</span>
                                 </div>
                             </div>
                             <CardTitle className="text-xl group-hover:text-primary transition-colors">
@@ -91,7 +110,7 @@ export default function Products() {
                                 <span className="text-2xl font-bold text-primary">
                                     ${product.price}
                                 </span>
-                                <Link href={`/products/${product.id}`}>
+                                <Link href={`/products/${product._id}`}>
                                     <Button variant="outline" size="sm" className="group-hover:bg-amber-500 group-hover:dark:bg-amber-300 hover:bg-amber-500 hover:dark:bg-amber-300 hover:text-secondary group-hover:text-secondary  group-hover:font-bold transition-colors">
                                         <Eye className="h-4 w-4 mr-2" />
                                         View Details

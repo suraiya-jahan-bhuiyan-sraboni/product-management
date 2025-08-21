@@ -1,18 +1,37 @@
-import { products } from "@/lib/products";
+"use client"
+
 import { notFound } from "next/navigation";
 import { Button } from '@/components/ui/button';
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 
+export default  function ProductDetails({ params }) {
+    const {id }=  params
+    const [product, setProducts] = useState({});
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch(`/api/products/${id}`);
+                const data = await res.json();
+                setProducts(data);
+            } catch (error) {
+                console.error("Failed to fetch products:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProducts();
+    }, []);
+    console.log(product)
 
-export default function ProductDetails({ params }) {
-    const { id } = params
-    const product = products.find((p) => p.id === id);
     if (!product) {
         return notFound();
     }
+    if (loading) return <div className="text-center py-20 text-xl">Loading product...</div>;
     return <div className="max-w-4xl mx-auto py-12">
         <div className="grid md:grid-cols-2 gap-8 bg-amber-300/10 rounded-lg sm:p-6  ">
             {/* Product Image */}
@@ -35,7 +54,7 @@ export default function ProductDetails({ params }) {
 
                 <div className="flex items-center space-x-2 mb-4">
                     <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    <span className="text-lg font-medium">{product.rating}</span>
+                    <span className="text-lg font-medium">{product.ratings}</span>
                 </div>
 
                 <p className="text-primary mb-6">{product.description}</p>
@@ -44,7 +63,7 @@ export default function ProductDetails({ params }) {
                     ${product.price}
                 </div>
 
-                <Button  className="px-6 py-2 rounded">
+                <Button className="px-6 py-2 rounded">
                     Add to Cart
                 </Button>
             </div>
