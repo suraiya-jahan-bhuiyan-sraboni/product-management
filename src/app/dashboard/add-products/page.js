@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -5,9 +7,18 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+import { useSession } from 'next-auth/react';
 import { Plus } from 'lucide-react';
+import { redirect, useRouter } from 'next/navigation';
+
 
 export default function AddProducts() {
+    const router = useRouter();
+    const { data: session, status } = useSession();
+
+    if (!session) {
+        redirect("/login");
+    }
     return <div className='py-20'>
         <Card className="shadow shadow-amber-500 md:py-30 border max-w-5xl mx-auto md:px-20">
             <CardHeader className={"pb-10"}>

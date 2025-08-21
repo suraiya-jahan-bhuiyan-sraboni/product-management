@@ -1,9 +1,11 @@
-"use-client"
+"use client"
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function Hero() {
+    const { data: session } = useSession();
     return <div>
         <section className="relative py-20 lg:py-32 overflow-hidden border-b-2 border-amber-400">
             <div className="absolute inset-0 bg-amber-500 opacity-10"></div>
@@ -35,7 +37,7 @@ export default function Hero() {
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
                         </Link>
-                        <Link href="/login">
+                        <Link href={session ? "/dashboard/add-products" : "/login"}>
                             <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/5">
                                 Get Started
                             </Button>

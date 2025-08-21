@@ -1,11 +1,51 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Mail, Lock } from 'lucide-react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { useSession, signIn } from 'next-auth/react';
+import { useState } from 'react';
+import { toast } from 'sonner';
+
+
 
 export default function Login() {
+    const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
+
+    if (status === "loading" ) {
+        return <div className="text-center mt-20">Loading...</div>;
+    }
+    if (session) {
+        redirect("/");
+    }
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        const res = await signIn("credentials", {
+            redirect: false,
+            email,
+            password,
+        });
+
+        setLoading(false);
+
+        if (res?.error) {
+            toast.error(res.error);
+        } else {
+            toast.success("Logged in successfully!");
+            redirect("/");
+        }
+    };
+
     return <div>
         <div className="min-h-screen flex items-center justify-center bg-gradient-secondary py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
@@ -18,13 +58,7 @@ export default function Login() {
                     </CardHeader>
 
                     <CardContent>
-                        <form className="space-y-6">
-                            {/* {error && (
-                                <Alert variant="destructive">
-                                    <AlertDescription>{error}</AlertDescription>
-                                </Alert>
-                            )} */}
-
+                        <form className="space-y-6"  onSubmit={handleLogin}>
                             <div className="space-y-2">
                                 <Label htmlFor="email">Email address</Label>
                                 <div className="relative">
@@ -60,9 +94,9 @@ export default function Login() {
                             <Button
                                 type="submit"
                                 className="w-full dark:bg-amber-300 bg-amber-500  font-bold"
-                            //disabled={isLoading}
+                                 disabled={loading}
                             >
-                                {/* {isLoading ? 'Signing in...' : ''} */}Sign In
+                                {loading ? 'Signing in...' : 'Sign In'}
                             </Button>
                         </form>
 
