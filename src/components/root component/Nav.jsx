@@ -14,7 +14,7 @@ export default function Nav() {
     const navItems = [
         { label: "Home", href: "/" },
         { label: "Products", href: "/products" },
-        { label: "Add Products", href: "/add-products" },
+        { label: "dashboard", href: "/dashboard/add-products" },
     ];
 
     return (

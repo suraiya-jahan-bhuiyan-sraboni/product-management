@@ -1,3 +1,5 @@
+
+
 export default function AddProducts(){
-    return <div>Add Products</div>
+    return <div>Add-products</div>
 }
