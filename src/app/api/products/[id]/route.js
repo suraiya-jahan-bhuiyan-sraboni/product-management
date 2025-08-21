@@ -4,12 +4,13 @@ import Product from '@/models/Product';
 export async function GET(req, { params }) {
     try {
 
-        console.log(params)
+        //console.log(params)
 
         await connectDB();
+        const { id } = await params;
 
-        const product = await Product.findById(params.id);
-        console.log(product)
+        const product = await Product.findById(id);
+       // console.log(product)
         if (!product) {
             return Response.json({ error: "Product not found" }, { status: 404 });
         }

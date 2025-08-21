@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 
 
 export default  function ProductDetails({ params }) {
-    const {id }=  params
+    const {id }=  use(params)
     const [product, setProducts] = useState({});
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -26,7 +26,7 @@ export default  function ProductDetails({ params }) {
         };
         fetchProducts();
     }, []);
-    console.log(product)
+    //console.log(product)
 
     if (!product) {
         return notFound();
