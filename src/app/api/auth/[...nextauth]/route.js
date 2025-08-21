@@ -7,7 +7,12 @@ import bcrypt from "bcrypt";
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      async authorize(credentials) {
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+
+      }, async authorize(credentials) {
         await connectDB();
         const user = await User.findOne({ email: credentials.email });
         if (!user) throw new Error("No user found");
@@ -19,6 +24,7 @@ const handler = NextAuth({
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
 });
 
 export { handler as GET, handler as POST };

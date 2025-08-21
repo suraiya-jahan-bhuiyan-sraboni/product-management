@@ -35,7 +35,7 @@ export default function Nav() {
                     <Image src="/favicon.ico" alt="Logo"
                         width={40}
                         height={24}
-                        className="rounded w-auto h-auto" />  Products
+                        className="rounded" />  Products
                 </Link>
 
                 {/* Desktop Menu */}
