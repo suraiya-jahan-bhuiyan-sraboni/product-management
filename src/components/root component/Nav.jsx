@@ -63,7 +63,7 @@ export default function Nav() {
                                 <Menu className="h-5 w-5" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-40">
+                        <DropdownMenuContent className="w-42 md:hidden" align="end">
                             {navItems.map((item) => (
                                 <DropdownMenuItem key={item.href} asChild>
                                     <Link href={item.href} className="w-full">
@@ -71,6 +71,19 @@ export default function Nav() {
                                     </Link>
                                 </DropdownMenuItem>
                             ))}
+                            <DropdownMenuItem className={" "}>
+                                {pathname !== "/login" && (
+                                    <Link href="/login">
+                                        <Button variant="default" size="sm">Login</Button>
+                                    </Link>
+                                )}
+                            
+                                {pathname !== "/register" && (
+                                    <Link href="/register">
+                                        <Button variant="default" size="sm">Register</Button>
+                                    </Link>
+                                )}
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
