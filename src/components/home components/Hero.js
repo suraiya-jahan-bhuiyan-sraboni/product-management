@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Hero() {
     return <div>
-        <section className="relative py-20 lg:py-32 overflow-hidden">
+        <section className="relative py-20 lg:py-32 overflow-hidden border-b-2 border-amber-400">
             <div className="absolute inset-0 bg-amber-500 opacity-10"></div>
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
