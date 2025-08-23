@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Star, Eye } from 'lucide-react';
 const mockProducts = [
     {
-        id: '1',
+        id: '68a7518f4ce67b12847670e6',
         name: 'Premium Wireless Headphones',
         description: 'High-quality audio with noise cancellation technology for the ultimate listening experience.',
         price: 299.99,
@@ -15,7 +15,7 @@ const mockProducts = [
         image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop'
     },
     {
-        id: '2',
+        id: '68a7518f4ce67b12847670e7',
         name: 'Smart Fitness Watch',
         description: 'Track your health and fitness goals with advanced monitoring and GPS capabilities.',
         price: 399.99,
@@ -24,7 +24,7 @@ const mockProducts = [
         image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop'
     },
     {
-        id: '3',
+        id: '68a7518f4ce67b12847670e8',
         name: 'Ergonomic Office Chair',
         description: 'Comfortable and supportive chair designed for long work sessions and better posture.',
         price: 599.99,

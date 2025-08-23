@@ -94,7 +94,7 @@ export default function Products() {
                                 <Badge variant="secondary">{product.category}</Badge>
                                 <div className="flex items-center space-x-1">
                                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                    <span className="text-sm font-medium">{product.ratings}</span>
+                                    <span className="text-sm font-medium">{product.rating || product.ratings}</span>
                                 </div>
                             </div>
                             <CardTitle className="text-xl group-hover:text-primary transition-colors">

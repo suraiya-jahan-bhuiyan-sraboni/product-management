@@ -26,7 +26,7 @@ export default  function ProductDetails({ params }) {
         };
         fetchProducts();
     }, []);
-    //console.log(product)
+    console.log(product)
 
     if (!product) {
         return notFound();
@@ -54,7 +54,7 @@ export default  function ProductDetails({ params }) {
 
                 <div className="flex items-center space-x-2 mb-4">
                     <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    <span className="text-lg font-medium">{product.ratings}</span>
+                    <span className="text-lg font-medium">{product.rating || product.ratings}</span>
                 </div>
 
                 <p className="text-primary mb-6">{product.description}</p>
